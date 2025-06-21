@@ -1665,24 +1665,7 @@
         </div>
     </footer>
 
-   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-analytics.js";
-    import {
-           getFirestore,
-           collection,
-           addDoc,
-           getDocs,
-           query,
-           orderBy
-    } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
-
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const db = getFirestore(app);
-
-
+   <script>
    let currentSection = 'home';
    let currentRating = 0;
    let isMobileMenuOpen = false;
