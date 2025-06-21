@@ -1691,7 +1691,13 @@
 
     async function saveReview(review) {
       try {
-        await addDoc(collection(db, "reviews"), review);
+        await fetch("https://script.google.com/macros/s/AKfycbwpIOE0lrZn_MZXn2aV8og6C2hEqeiV13DA0leKURFmjQlauQvAJxnH_4b9V8qTV5nh3Q/exec", {
+          method: "POST",
+          body: JSON.stringify(review),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
         return true;
       } catch (error) {
         console.error("Error saving review:", error);
@@ -1701,14 +1707,15 @@
 
     async function getReviews() {
       try {
-        const q = query(collection(db, "reviews"), orderBy("date", "desc")); 
-        const snapshot = await getDocs(q);
-        return snapshot.docs.map(doc => doc.data());
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwpIOE0lrZn_MZXn2aV8og6C2hEqeiV13DA0leKURFmjQlauQvAJxnH_4b9V8qTV5nh3Q/exec");
+        const reviews = await response.json();
+        return reviews;
       } catch (error) {
-        console.error("Error getting reviews:", error);
-        return [];
+       console.error("Error getting reviews:", error);
+       return [];
       }
     }
+
 
     function saveSubscription(email) {
       try {
