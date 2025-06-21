@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>STARMS Catering - Premium Event Catering Services</title>
+
+  <meta name="description" content="STARMS Catering - Professional catering services for all your special events. Quality food, exceptional service, memorable experiences.">
+  <meta name="keywords" content="catering, events, food service, wedding catering, corporate catering, party catering, STARMS">
+  <meta name="author" content="STARMS Catering">
+  <meta property="og:title" content="STARMS Catering - Premium Event Catering Services">
+  <meta property="og:description" content="Transform your events with our exceptional catering services. From intimate gatherings to grand celebrations.">
+  <meta property="og:image" content="https://starms-catering.rf.gd/images/preview.jpg">
+  <meta property="og:url" content="https://starms-catering.rf.gd">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="STARMS Catering - Premium Event Catering Services">
+  <meta name="twitter:description" content="Transform your events with our exceptional catering services. From intimate gatherings to grand celebrations.">
+  <meta name="twitter:image" content="https://starms-catering.rf.gd/images/preview.jpg">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="aos/aos.css">
+
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.1/firebase-analytics.js"></script>
+
+  <script src="aos/aos.js"></script>
+
+
+  <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Arial', sans-serif;
+          line-height: 1.6;
+          color: #333;
+          background-color: #ffffff;
+        }
+
+        /* Brand Colors */
+        :root {
+          --brand-gold: #eab308;
+          --brand-dark: #1a1a1a;
+          --brand-accent: #ca8a04;
+          --gray-50: #f9fafb;
+          --gray-100: #f3f4f6;
+          --gray-200: #e5e7eb;
+          --gray-300: #d1d5db;
+          --gray-400: #9ca3af;
+          --gray-500: #6b7280;
+          --gray-600: #4b5563;
+          --gray-700: #374151;
+          --gray-800: #1f2937;
+          --gray-900: #111827;
+        }
+
+        /* Animations */
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+          0% { opacity: 0; transform: translateY(20px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Main App */
+        .starms-main {
+          padding-top: 80px;
+        }
+
+        .starms-container {
+          max-width: 80rem;
+          margin: 0 auto;
+          padding: 0 1rem;
+        }
+
+        .starms-section {
+          padding: 5rem 0;
+          display: none;
+        }
+
+        .starms-section.active {
+          display: block;
+        }
+
+        .starms-section-header {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+
+        .starms-section-header h2 {
+          font-size: 2.25rem;
+          font-weight: bold;
+          color: var(--gray-800);
+          margin-bottom: 1rem;
+        }
+
+        .starms-section-header p {
+          font-size: 1.25rem;
+          color: var(--gray-600);
+          max-width: 48rem;
+          margin: 0 auto;
+        }
+
+        /* Navigation */
+        .starms-nav {
+          background-color: var(--gray-900);
+          color: white;
+          position: fixed;
+          width: 100%;
+          top: 0;
+          z-index: 50;
+        }
+
+        .starms-nav-container {
+          max-width: 80rem;
+          margin: 0 auto;
+          padding: 0 1rem;
+        }
+
+        .starms-nav-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 0;
+        }
+
+        .starms-logo {
+          display: flex;
+          align-items: center;
+        }
+
+        .starms-logo-icon {
+          width: 2rem;
+          height: 2rem;
+          background-color: var(--brand-gold);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 0.75rem;
+          color: var(--gray-900);
+          font-size: 0.875rem;
+        }
+
+        .starms-logo-text {
+          font-size: 1.25rem;
+          font-weight: bold;
+          color: var(--brand-gold);
+        }
+
+        .starms-nav-desktop {
+          display: none;
+          list-style: none;
+          gap: 2rem;
+        }
+
+        .starms-nav-link {
+          background: none;
+          border: none;
+          color: white;
+          font-weight: 600;
+          cursor: pointer;
+          transition: color 0.3s ease;
+          padding: 0.5rem 0;
+        }
+
+        .starms-nav-link:hover,
+        .starms-nav-link.active {
+          color: var(--brand-gold);
+        }
+
+        .starms-nav-mobile-btn {
+          display: block;
+          background: none;
+          border: none;
+          color: white;
+          font-size: 1.25rem;
+          cursor: pointer;
+          transition: color 0.3s ease;
+        }
+
+        .starms-nav-mobile-btn:hover {
+          color: var(--brand-gold);
+        }
+
+        .starms-nav-mobile {
+          display: block;
+          background-color: var(--gray-800);
+        }
+
+        .starms-nav-mobile-content {
+          padding: 0.5rem 0.5rem 0.75rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        .starms-nav-mobile-link {
+          display: block;
+          padding: 0.5rem 0.75rem;
+          background: none;
+          border: none;
+          color: var(--gray-300);
+          font-weight: 500;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+          transition: color 0.3s ease;
+        }
+
+        .starms-nav-mobile-link:hover {
+          color: var(--brand-gold);
+        }
+
+        /* Page Loader */
+        .starms-loader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: var(--gray-900);
+          display: none;
+          align-items: center;
+          justify-content: center;
+          z-index: 100;
+        }
+        .starms-loader.active {
+          display: flex;
+        }
+
+        .starms-loader-content {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .starms-loader-logo {
+          width: 3rem;
+          height: 3rem;
+          background-color: var(--brand-gold);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--gray-900);
+          font-size: 1.5rem;
+        }
+
+        .starms-loader-spinner {
+          color: var(--brand-gold);
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+
+        /* Hero Section */
+        .starms-hero {
+          background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                      url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="food-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="3" fill="%23eab308" opacity="0.1"/></pattern></defs><rect width="1200" height="800" fill="%23111827"/><rect width="1200" height="800" fill="url(%23food-pattern)"/><path d="M0,600 Q300,550 600,600 T1200,600 L1200,800 L0,800 Z" fill="%231f2937" opacity="0.8"/><circle cx="150" cy="200" r="60" fill="%23374151" opacity="0.3"/><circle cx="900" cy="300" r="80" fill="%23374151" opacity="0.2"/><circle cx="300" cy="500" r="40" fill="%23374151" opacity="0.4"/><circle cx="1000" cy="150" r="50" fill="%23374151" opacity="0.3"/></svg>');
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .starms-hero-overlay {
+          position: absolute;
+          inset: 0;
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .starms-hero-content {
+          position: relative;
+          z-index: 10;
+          text-align: center;
+          padding: 0 1rem;
+        }
+
+        .starms-hero-title {
+          font-size: 3rem;
+          font-weight: bold;
+          margin-bottom: 1.5rem;
+        }
+
+        .starms-brand-color {
+          color: var(--brand-gold);
+        }
+
+        .starms-hero-subtitle {
+          font-size: 1.25rem;
+          margin-bottom: 2rem;
+          max-width: 48rem;
+          margin-left: auto;
+          margin-right: auto;
+          line-height: 1.625;
+        }
+
+        .starms-hero-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          justify-content: center;
+        }
+
+        /* Buttons */
+        .starms-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.75rem 2rem;
+          border-radius: 9999px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border: none;
+          font-size: 1rem;
+        }
+
+        .starms-btn-primary {
+          background-color: var(--brand-gold);
+          color: var(--gray-900);
+        }
+
+        .starms-btn-primary:hover {
+          background-color: var(--brand-accent);
+        }
+
+        .starms-btn-secondary {
+          background-color: transparent;
+          color: var(--brand-gold);
+          border: 2px solid var(--brand-gold);
+        }
+
+        .starms-btn-secondary:hover {
+          background-color: var(--brand-gold);
+          color: var(--gray-900);
+        }
+
+        .starms-btn-full {
+          width: 100%;
+        }
+
+        /* Features Section */
+        .starms-features {
+          padding: 5rem 0;
+          background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
+                      url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%23f9fafb"/><path d="M0,100 Q300,50 600,100 T1200,100 L1200,0 L0,0 Z" fill="%23eab308" opacity="0.1"/><circle cx="100" cy="500" r="40" fill="%23eab308" opacity="0.05"/><circle cx="1100" cy="400" r="60" fill="%23eab308" opacity="0.05"/><circle cx="600" cy="300" r="30" fill="%23eab308" opacity="0.05"/></svg>');
+          background-size: cover;
+          background-position: center;
+        }
+
+        .starms-features-header {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+
+        .starms-features-header h2 {
+          font-size: 2.25rem;
+          font-weight: bold;
+          color: var(--gray-800);
+          margin-bottom: 1rem;
+        }
+
+        .starms-features-header p {
+          font-size: 1.25rem;
+          color: var(--gray-600);
+          max-width: 48rem;
+          margin: 0 auto;
+        }
+
+        .starms-features-grid {
+          display: grid;
+          gap: 2rem;
+        }
+
+        .starms-feature {
+          text-align: center;
+          padding: 2rem;
+          border-radius: 0.5rem;
+          background-color: var(--gray-50);
+          transition: box-shadow 0.3s ease;
+        }
+
+        .starms-feature:hover {
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .starms-feature-icon {
+          width: 4rem;
+          height: 4rem;
+          background-color: var(--brand-gold);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1.5rem;
+          color: var(--gray-900);
+          font-size: 1.5rem;
+        }
+
+        .starms-feature h3 {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: var(--gray-800);
+          margin-bottom: 1rem;
+        }
+
+        .starms-feature p {
+          color: var(--gray-600);
+        }
+
+        /* About Section */
+        .starms-about-section {
+          background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
+                      url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%23ffffff"/><path d="M0,100 Q200,80 400,100 T800,100 Q1000,120 1200,100 L1200,0 L0,0 Z" fill="%23eab308" opacity="0.1"/><circle cx="100" cy="300" r="25" fill="%23ca8a04" opacity="0.08"/><circle cx="500" cy="400" r="35" fill="%23eab308" opacity="0.06"/><circle cx="900" cy="200" r="30" fill="%23ca8a04" opacity="0.08"/><circle cx="1100" cy="450" r="20" fill="%23eab308" opacity="0.1"/></svg>');
+          background-size: cover;
+          background-position: center;
+          padding: 5rem 0;
+        }
+
+        .starms-about {
+          display: grid;
+          gap: 3rem;
+          align-items: center;
+        }
+
+        .starms-about-content h2 {
+          font-size: 2.25rem;
+          font-weight: bold;
+          color: var(--gray-800);
+          margin-bottom: 1.5rem;
+        }
+
+        .starms-about-content p {
+          font-size: 1.125rem;
+          color: var(--gray-600);
+          margin-bottom: 1.5rem;
+          line-height: 1.625;
+        }
+
+        .starms-stats {
+          display: grid;
+          gap: 1.5rem;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .starms-stat {
+          text-align: center;
+          padding: 1rem;
+          background-color: var(--gray-50);
+          border-radius: 0.5rem;
+        }
+
+        .starms-stat-number {
+          font-size: 1.875rem;
+          font-weight: bold;
+          color: var(--brand-gold);
+          margin-bottom: 0.5rem;
+        }
+
+        .starms-stat-label {
+          color: var(--gray-600);
+        }
+
+        /* Menu Section */
+        .starms-menu-section {
+          background: linear-gradient(rgba(249, 250, 251, 0.95), rgba(249, 250, 251, 0.95)), 
+                      url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23f9fafb"/><path d="M0,200 Q600,150 1200,200 L1200,0 L0,0 Z" fill="%23eab308" opacity="0.08"/><path d="M0,800 Q600,750 1200,800 L1200,600 L0,600 Z" fill="%23ca8a04" opacity="0.05"/><circle cx="200" cy="400" r="50" fill="%23eab308" opacity="0.03"/><circle cx="900" cy="300" r="70" fill="%23ca8a04" opacity="0.03"/></svg>');
+          background-size: cover;
+          background-position: center;
+        }
+
+        .starms-menu-grid {
+          display: grid;
+          gap: 2rem;
+        }
+
+        .starms-menu-category {
+          background-color: white;
+          border-radius: 0.5rem;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+          padding: 2rem;
+        }
+
+        .starms-menu-category-header {
+          text-align: center;
+          margin-bottom: 1.5rem;
+        }
+
+        .starms-menu-icon {
+          width: 4rem;
+          height: 4rem;
+          background-color: var(--brand-gold);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1rem;
+          color: var(--gray-900);
+          font-size: 1.5rem;
+        }
+
+        .starms-menu-category h3 {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: var(--gray-800);
+        }
+
+        .starms-menu-items {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .starms-menu-items li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid var(--gray-200);
+          padding-bottom: 0.5rem;
+        }
+
+        .starms-menu-item-info h4 {
+          font-weight: 600;
+          color: var(--gray-800);
+        }
+
+        .starms-menu-item-info p {
+          font-size: 0.875rem;
+          color: var(--gray-600);
+        }
+
+        .starms-menu-price {
+          color: var(--brand-accent);
+          font-weight: bold;
+        }
+
+        /* Gallery Section */
+        .starms-gallery-section {
+          background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                      url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%23f3f4f6"/><polygon points="0,300 200,250 400,300 600,280 800,320 1000,290 1200,310 1200,600 0,600" fill="%23eab308" opacity="0.06"/><circle cx="150" cy="150" r="20" fill="%23ca8a04" opacity="0.1"/><circle cx="450" cy="200" r="15" fill="%23eab308" opacity="0.08"/><circle cx="750" cy="100" r="25" fill="%23ca8a04" opacity="0.06"/><circle cx="1050" cy="180" r="18" fill="%23eab308" opacity="0.09"/></svg>');
+          background-size: cover;
+          background-position: center;
+          padding: 5rem 0;
+        }
+
+        .starms-gallery-section {
+         background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                     url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%23f3f4f6"/><polygon points="0,300 200,250 400,300 600,280 800,320 1000,290 1200,310 1200,600 0,600" fill="%23eab308" opacity="0.06"/><circle cx="150" cy="150" r="20" fill="%23ca8a04" opacity="0.1"/><circle cx="450" cy="200" r="15" fill="%23eab308" opacity="0.08"/><circle cx="750" cy="100" r="25" fill="%23ca8a04" opacity="0.06"/><circle cx="1050" cy="180" r="18" fill="%23eab308" opacity="0.09"/></svg>');
+         background-size: cover;
+         background-position: center;
+         padding: 5rem 0;
+        }
+
+        /* Gallery Grid */
+        .starms-gallery {
+         display: grid;
+         gap: 1.5rem;
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+         /* Gallery Section */
+         .starms-gallery-section {
+          background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                      url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%23f3f4f6"/><polygon points="0,300 200,250 400,300 600,280 800,320 1000,290 1200,310 1200,600 0,600" fill="%23eab308" opacity="0.06"/><circle cx="150" cy="150" r="20" fill="%23ca8a04" opacity="0.1"/><circle cx="450" cy="200" r="15" fill="%23eab308" opacity="0.08"/><circle cx="750" cy="100" r="25" fill="%23ca8a04" opacity="0.06"/><circle cx="1050" cy="180" r="18" fill="%23eab308" opacity="0.09"/></svg>');
+          background-size: cover;
+          background-position: center;
+          padding: 5rem 0;
+        }
+
+        /* Gallery Grid */
+        .starms-gallery {
+         display: grid;
+         gap: 1.5rem;
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .starms-gallery-item {
+         border-radius: 0.5rem;
+         overflow: hidden;
+         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                     0 4px 6px -2px rgba(0, 0, 0, 0.05);
+         transition: box-shadow 0.3s ease;
+        }
+
+        .starms-gallery-item:hover {
+         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                     0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .starms-gallery-item img {
+         aspect-ratio: 4 / 3;
+         object-fit: cover;
+        }
+
+        .starms-gallery img {
+         width: 100%;
+         height: auto;
+         display: block;
+        }
+ 
+        /* Contact Section */
+        .starms-contact-section {
+          background: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), 
+                      url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%23ffffff"/><path d="M0,500 Q400,450 800,500 Q1000,520 1200,500 L1200,600 L0,600 Z" fill="%23eab308" opacity="0.08"/><circle cx="200" cy="200" r="30" fill="%23ca8a04" opacity="0.06"/><circle cx="600" cy="150" r="40" fill="%23eab308" opacity="0.05"/><circle cx="1000" cy="250" r="25" fill="%23ca8a04" opacity="0.07"/></svg>');
+          background-size: cover;
+          background-position: center;
+          padding: 5rem 0;
+        }
+
+        /* Contact */
+        .starms-contact {
+          display: grid;
+          gap: 3rem;
+        }
+
+        .starms-contact-info h3,
+        .starms-contact-form h3 {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: var(--gray-800);
+          margin-bottom: 1.5rem;
+        }
+
+        .starms-contact-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .starms-contact-item i {
+          width: 2.5rem;
+          height: 2.5rem;
+          background-color: var(--brand-gold);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--gray-900);
+          font-size: 1rem;
+          flex-shrink: 0;
+        }
+
+        .starms-contact-item div h4 {
+          font-weight: 600;
+          color: var(--gray-800);
+          margin-bottom: 0.25rem;
+        }
+
+        .starms-contact-item div p {
+          color: var(--gray-600);
+        }
+
+        .starms-contact-item a {
+          color: var(--brand-accent);
+          text-decoration: none;
+        }
+
+        .starms-contact-item a:hover {
+          text-decoration: underline;
+        }
+
+        /* Forms */
+        .starms-form-grid {
+          display: grid;
+          gap: 1rem;
+        }
+
+        .starms-form-group {
+          margin-bottom: 1rem;
+        }
+
+        .starms-form-group label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+          color: var(--gray-700);
+        }
+
+        .starms-form-group input,
+        .starms-form-group select,
+        .starms-form-group textarea {
+          width: 100%;
+          padding: 0.75rem;
+          border: 1px solid var(--gray-300);
+          border-radius: 0.375rem;
+          font-size: 1rem;
+          transition: border-color 0.3s ease;
+        }
+
+        .starms-form-group input:focus,
+        .starms-form-group select:focus,
+        .starms-form-group textarea:focus {
+          outline: none;
+          border-color: var(--brand-gold);
+        }
+
+        /* FAQ Section */
+        .starms-faq-section {
+          background: linear-gradient(rgba(249, 250, 251, 0.95), rgba(249, 250, 251, 0.95)), 
+                      url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%23f9fafb"/><path d="M0,0 Q300,50 600,0 T1200,0 L1200,100 Q900,150 600,100 T0,100 Z" fill="%23eab308" opacity="0.06"/><circle cx="300" cy="300" r="35" fill="%23ca8a04" opacity="0.05"/><circle cx="800" cy="200" r="28" fill="%23eab308" opacity="0.04"/><circle cx="100" cy="450" r="22" fill="%23ca8a04" opacity="0.06"/><circle cx="1000" cy="400" r="32" fill="%23eab308" opacity="0.05"/></svg>');
+          background-size: cover;
+          background-position: center;
+          padding: 5rem 0;
+        }
+
+        .starms-faq-container {
+          max-width: 48rem;
+          margin: 0 auto;
+        }
+
+        .starms-faq-item {
+          background-color: white;
+          border-radius: 0.5rem;
+          margin-bottom: 1rem;
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .starms-faq-question {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1.5rem;
+          cursor: pointer;
+        }
+
+        .starms-faq-question:hover {
+          background-color: var(--gray-50);
+        }
+
+        .starms-faq-question h3 {
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: var(--gray-800);
+        }
+
+        .starms-faq-question i {
+          color: var(--brand-gold);
+          font-size: 1rem;
+        }
+
+        .starms-faq-answer {
+          display: none;
+          padding: 0 1.5rem 1.5rem;
+        }
+
+        .starms-faq-item.active .starms-faq-answer {
+          display: block;
+        }
+
+        .starms-faq-answer p {
+          color: var(--gray-600);
+          line-height: 1.625;
+        }
+
+        .starms-reviews-section {
+          background: linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)), 
+                      url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect width="1200" height="600" fill="%23f9fafb"/><path d="M0,400 Q400,360 800,400 Q1000,420 1200,400 L1200,600 L0,600 Z" fill="%23eab308" opacity="0.07"/><circle cx="180" cy="180" r="25" fill="%23ca8a04" opacity="0.08"/><circle cx="520" cy="120" r="18" fill="%23eab308" opacity="0.06"/><circle cx="850" cy="220" r="30" fill="%23ca8a04" opacity="0.05"/><circle cx="1100" cy="160" r="22" fill="%23eab308" opacity="0.07"/></svg>');
+          background-size: cover;
+          background-position: center;
+          padding: 5rem 0;
+        }
+
+        
+        .starms-reviews-container {
+          display: grid;
+          gap: 3rem;
+        }
+
+        .starms-reviews-list {
+          display: grid;
+          gap: 1.5rem;
+        }
+
+        .starms-review {
+          background-color: var(--gray-50);
+          padding: 1.5rem;
+          border-radius: 0.5rem;
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .starms-review-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1rem;
+        }
+
+        .starms-review-author {
+          font-weight: 600;
+          color: var(--gray-800);
+        }
+
+        .starms-review-date {
+          font-size: 0.875rem;
+          color: var(--gray-500);
+        }
+
+        .starms-review-rating {
+          display: flex;
+          gap: 0.25rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .starms-review-rating i {
+          color: var(--brand-gold);
+        }
+
+        .starms-review-rating i.inactive {
+          color: var(--gray-300);
+        }
+
+        .starms-review-comment {
+          color: var(--gray-600);
+          line-height: 1.625;
+        }
+
+        .starms-review-form-section h3 {
+          margin-bottom: 1.5rem;
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: var(--gray-800);
+        }
+
+        .starms-star-rating {
+          display: flex;
+          gap: 0.25rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .starms-star-rating i {
+          font-size: 1.5rem;
+          color: var(--gray-300);
+          cursor: pointer;
+          transition: color 0.3s ease;
+        }
+
+        .starms-star-rating i:hover,
+        .starms-star-rating i.active {
+          color: var(--brand-gold);
+        }
+
+        /* No Reviews Message */
+        .starms-no-reviews {
+          text-align: center;
+          padding: 3rem;
+          color: var(--gray-500);
+        }
+
+        .starms-no-reviews i {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          color: var(--gray-400);
+        }
+
+        .starms-no-reviews h4 {
+          font-size: 1.25rem;
+          margin-bottom: 0.5rem;
+          color: var(--gray-600);
+        }
+
+        /* Footer */
+        .starms-footer {
+          background-color: var(--gray-900);
+          color: white;
+          padding: 3rem 0 1rem;
+        }
+
+        .starms-footer-container {
+          max-width: 80rem;
+          margin: 0 auto;
+          padding: 0 1rem;
+        }
+
+        .starms-footer-grid {
+          display: grid;
+          gap: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        .starms-footer-section h3 {
+          margin-bottom: 1rem;
+          color: var(--brand-gold);
+          font-size: 1.125rem;
+          font-weight: bold;
+        }
+
+        .starms-footer-contact p {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 0.75rem;
+          color: var(--gray-300);
+        }
+
+        .starms-footer-contact a {
+          color: var(--gray-300);
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        .starms-footer-contact a:hover {
+          color: var(--brand-gold);
+        }
+
+        .starms-footer-links {
+          list-style: none;
+        }
+
+        .starms-footer-links li {
+          margin-bottom: 0.5rem;
+        }
+
+        .starms-footer-links button {
+          background: none;
+          border: none;
+          color: var(--gray-300);
+          cursor: pointer;
+          transition: color 0.3s ease;
+          padding: 0;
+          font-size: 1rem;
+        }
+
+        .starms-footer-links button:hover {
+          color: var(--brand-gold);
+        }
+
+        .starms-footer-social {
+          display: flex;
+          gap: 1rem;
+        }
+
+        .starms-footer-social a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.5rem;
+          height: 2.5rem;
+          background-color: var(--gray-800);
+          border-radius: 50%;
+          color: var(--gray-300);
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+
+        .starms-footer-social a:hover {
+          background-color: var(--brand-gold);
+          color: var(--gray-900);
+        }
+
+        .starms-footer-description {
+          margin-bottom: 1rem;
+          color: var(--gray-400);
+        }
+
+        .starms-footer-form {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        .starms-footer-input {
+          flex: 1;
+          padding: 0.75rem;
+          border: 1px solid var(--gray-600);
+          border-radius: 0.375rem;
+          background-color: var(--gray-800);
+          color: white;
+          font-size: 1rem;
+        }
+
+        .starms-footer-input:focus {
+          outline: none;
+          border-color: var(--brand-gold);
+        }
+
+        .starms-footer-input::placeholder {
+          color: var(--gray-400);
+        }
+
+        .starms-footer-submit {
+          padding: 0.75rem;
+          background-color: var(--brand-gold);
+          color: var(--gray-900);
+          border: none;
+          border-radius: 0.375rem;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        .starms-footer-submit:hover {
+          background-color: var(--brand-accent);
+        }
+
+        .starms-footer-bottom {
+          border-top: 1px solid var(--gray-800);
+          padding-top: 1rem;
+          text-align: center;
+          color: var(--gray-400);
+        }
+
+        /* Responsive Design */
+        @media (min-width: 640px) {
+          .starms-hero-buttons {
+            flex-direction: row;
+          }
+          
+          .starms-features-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          }
+          
+          .starms-form-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          
+          .starms-contact {
+            grid-template-columns: 1fr 1fr;
+          }
+          
+          .starms-reviews-container {
+            grid-template-columns: 1fr 1fr;
+          }
+          
+          .starms-footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (min-width: 768px) {
+          .starms-nav-desktop {
+            display: flex;
+          }
+          
+          .starms-nav-mobile-btn {
+            display: none;
+          }
+          
+          .starms-nav-mobile {
+            display: none !important;
+          }
+          
+          .starms-about {
+            grid-template-columns: 1fr 1fr;
+          }
+          
+          .starms-menu-grid {
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          }
+          
+          .starms-footer-grid {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .starms-features-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+          
+          .starms-menu-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+    </style>
+</head>
+<body>
+    <!-- All HTML content will be embedded here -->
+    <!-- Navigation -->
+    <nav class="starms-nav">
+        <div class="starms-nav-container">
+            <div class="starms-nav-content">
+                <div class="starms-logo">
+                    <div class="starms-logo-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <span class="starms-logo-text">STARMS</span>
+                </div>
+                
+                <ul class="starms-nav-desktop">
+                    <li><button class="starms-nav-link active" data-section="home">Home</button></li>
+                    <li><button class="starms-nav-link" data-section="about">About</button></li>
+                    <li><button class="starms-nav-link" data-section="menu">Our Menu</button></li>
+                    <li><button class="starms-nav-link" data-section="gallery">Gallery</button></li>
+                    <li><button class="starms-nav-link" data-section="contact">Contact</button></li>
+                    <li><button class="starms-nav-link" data-section="faq">FAQ</button></li>
+                    <li><button class="starms-nav-link" data-section="reviews">Reviews</button></li>
+                </ul>
+                
+                <button class="starms-nav-mobile-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="starms-nav-mobile" style="display: none;">
+            <div class="starms-nav-mobile-content">
+                <button class="starms-nav-mobile-link" data-section="home">Home</button>
+                <button class="starms-nav-mobile-link" data-section="about">About</button>
+                <button class="starms-nav-mobile-link" data-section="menu">Our Menu</button>
+                <button class="starms-nav-mobile-link" data-section="gallery">Gallery</button>
+                <button class="starms-nav-mobile-link" data-section="contact">Contact</button>
+                <button class="starms-nav-mobile-link" data-section="faq">FAQ</button>
+                <button class="starms-nav-mobile-link" data-section="reviews">Reviews</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Loader -->
+    <div class="starms-loader">
+        <div class="starms-loader-content">
+            <div class="starms-loader-logo">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <div class="starms-loader-spinner">
+                STARMS
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="starms-main">
+        <!-- Home Section -->
+        <section id="home" class="starms-section active">
+            <div class="starms-hero">
+                <div class="starms-hero-overlay"></div>
+                <div class="starms-hero-content">
+                    <h1 class="starms-hero-title">
+                        <span class="starms-brand-color">STARMS</span> Catering
+                    </h1>
+                    <p class="starms-hero-subtitle">
+                        Transform your events with exceptional culinary experiences. From intimate gatherings to grand celebrations, we bring flavor and elegance to every occasion. 
+                    </p>
+                    <h3>WE CHOOSE QUALITY OVER QUANTITY.</h3>
+                    
+                    <div class="starms-hero-buttons">
+                        <button class="starms-btn starms-btn-primary" data-section="contact">
+                            <i class="fas fa-phone"></i>Book Now
+                        </button>
+                        <button class="starms-btn starms-btn-secondary" data-section="menu">
+                            <i class="fas fa-eye"></i>View Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="starms-features">
+                <div class="starms-container">
+                    <div class="starms-features-header">
+                        <h2>Why Choose STARMS?</h2>
+                        <p>We don't just serve food – we create memorable experiences that bring people together.</p>
+                    </div>
+                    
+                    <div class="starms-features-grid">
+                        <div class="starms-feature">
+                            <div class="starms-feature-icon">
+                                <i class="fas fa-chef-hat"></i>
+                            </div>
+                            <h3>Expert Chefs</h3>
+                            <p>Our professional chefs craft every dish with passion, using fresh, high-quality ingredients to create unforgettable flavors.</p>
+                        </div>
+                        
+                        <div class="starms-feature">
+                            <div class="starms-feature-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h3>Event Specialists</h3>
+                            <p>From weddings to corporate events, we handle every detail to ensure your special occasion is perfectly executed.</p>
+                        </div>
+                        
+                        <div class="starms-feature">
+                            <div class="starms-feature-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3>Personal Touch</h3>
+                            <p>We work closely with you to understand your vision and customize every aspect of your catering experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="starms-section starms-about-section">
+            <div class="starms-container">
+                <div class="starms-section-header">
+                    <h2>About STARMS Catering</h2>
+                    <p>Bringing exceptional culinary experiences to life since our founding</p>
+                </div>
+                
+                <div class="starms-about">
+                    <div class="starms-about-content">
+                        <h2>Our Story</h2>
+                        <p>
+                            At STARMS Catering, we believe that great food brings people together. Founded with a passion for culinary excellence, we have been serving the community with premium catering services that transform ordinary events into extraordinary memories.
+                        </p>
+                        <p>
+                            Our team of experienced chefs and event specialists work tirelessly to ensure every detail is perfect. From selecting the finest ingredients to presenting beautifully crafted dishes, we are committed to exceeding your expectations.
+                        </p>
+                        <p>
+                            Whether you're planning an intimate dinner party, a grand wedding reception, or a corporate gathering, STARMS Catering brings professionalism, creativity, and exceptional taste to every occasion.
+                        </p>
+                        <p>
+                           WE CHOOSE QUALITY OVER QUANTITY!!!
+                        </p>
+                    </div>
+                    
+                    <div class="starms-stats">
+                        <div class="starms-stat">
+                            <div class="starms-stat-number">200+</div>
+                            <div class="starms-stat-label">Events Catered</div>
+                        </div>
+                        <div class="starms-stat">
+                            <div class="starms-stat-number">5+</div>
+                            <div class="starms-stat-label">Years Of Experience</div>
+                        </div>
+                        <div class="starms-stat">
+                            <div class="starms-stat-number">100%</div>
+                            <div class="starms-stat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu" class="starms-section starms-menu-section">
+            <div class="starms-container">
+                <div class="starms-section-header">
+                    <h2>Our Menu</h2>
+                    <p>Discover our carefully crafted selection of dishes, made with the finest ingredients</p>
+                </div>
+                
+                <div class="starms-menu-grid">
+                    <div class="starms-menu-category">
+                        <div class="starms-menu-category-header">
+                            <div class="starms-menu-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <h3>Main Courses</h3>
+                        </div>
+                        <ul class="starms-menu-items">
+                            <li>
+                                <div class="starms-menu-item-info">
+                                    <h4>Grilled Chicken Platter</h4>
+                                    <p>Tender grilled chicken with herbs and spices</p>
+                                </div>
+                                <span class="starms-menu-price"></span>
+                            </li>
+                            <li>
+                                <div class="starms-menu-item-info">
+                                    <h4>Beef Stir Fry</h4>
+                                    <p>Succulent beef with fresh vegetables</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="starms-menu-item-info">
+                                    <h4>Jollof Rice, Fried Rice And Moinmoin</h4>
+                                    <p>Traditional Nigerian classic rice with exquisite bean pudding</p>
+                                </div>
+                            </li>
+                            <li>
+                              <div class="starms-menu-item-info">
+                                  <h4>Fried Rice</h4>
+                                  <p>Colorful fried rice with mixed vegetables</p>
+                              </div>
+                          </li>
+                            <li>
+                              <div class="starms-menu-item-info">
+                                  <h4>Ewa Agoyin</h4>
+                                  <p>Soft mashed beans with spicy pepper sauce</p>
+                              </div>
+                          </li>
+                          <li>
+                            <div class="starms-menu-item-info">
+                                <h4>Yam Porridge (Asaro)</h4>
+                                <p>Soft cooked yam with tomato,pepper sauce and palmoil</p>
+                            </div>
+                        </li>
+                        <li>
+                          <div class="starms-menu-item-info">
+                              <h4>Pepper Soup</h4>
+                              <p>Traditional Nigerian pepper soup with fresh meat/fish</p>
+                          </div>
+                      </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="starms-menu-category">
+                        <div class="starms-menu-category-header">
+                            <div class="starms-menu-icon">
+                                <i class="fas fa-bread-slice"></i>
+                            </div>
+                            <h3>Side Dishes</h3>
+                        </div>
+                        <ul class="starms-menu-items">
+                            <li>
+                                <div class="starms-menu-item-info">
+                                    <h4>Fried Yam</h4>
+                                    <p>Crispy yam slices with pepper sauce/eggs</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="starms-menu-item-info">
+                                    <h4>Peppered Snails</h4>
+                                    <p>sSpicy sauce with snails</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="starms-menu-item-info">
+                                    <h4>Fried Plantain</h4>
+                                    <p>Sweet fried plantain slices w/o sauce</p>
+                                </div>
+                            </li>
+                            <li>
+                              <div class="starms-menu-item-info">
+                                  <h4>Suya</h4>
+                                  <p>Spicy grilled meat</p>
+                              </div>
+                          </li>
+                          <li>
+                            <div class="starms-menu-item-info">
+                                <h4>Gizdodo</h4>
+                                <p>A mix of gizzard abd fried plaintain in spicy sauce</p>
+                            </div>
+                        </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="starms-menu-category">
+                        <div class="starms-menu-category-header">
+                            <div class="starms-menu-icon">
+                                <i class="fas fa-ice-cream"></i>
+                            </div>
+                            <h3>Desserts</h3>
+                        </div>
+                        <ul class="starms-menu-items">
+                            <li>
+                                <div class="starms-menu-item-info">
+                                    <h4>Cake</h4>
+                                    <p>Rich fruits or butter cake with smooth frosting</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="starms-menu-item-info">
+                                    <h4>Fruit Salad</h4>
+                                    <p>Fresh seasonal fruits with honey</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="starms-menu-item-info">
+                                    <h4>Doughnuts</h4>
+                                    <p>Deep-fried yeast dough with dusted sugar</p>
+                                </div>
+                            </li>
+                            <li>
+                              <div class="starms-menu-item-info">
+                                  <h4>Zobo</h4>
+                                  <p>Frozen fruit made with hisbiscus drink and sweeteners</p>
+                              </div>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="starms-section starms-gallery-section">
+          <div class="starms-container">
+            <div class="starms-section-header">
+              <h2>Our Gallery</h2>
+              <p>Take a look at some of our beautifully presented dishes and memorable events</p>
+            </div>
+      
+            <div id="gallery-items" class="starms-gallery"></div>
+          </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="starms-section starms-contact-section">
+            <div class="starms-container">
+                <div class="starms-section-header">
+                    <h2>Contact Us</h2>
+                    <p>Ready to make your event unforgettable? Get in touch with us today!</p>
+                </div>
+                
+                <div class="starms-contact">
+                    <div class="starms-contact-info">
+                        <h3>Get in Touch</h3>
+                        <div class="starms-contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p><a href="tel:+2347019400439">+234 701 940 0439</a></p>
+                            </div>
+                        </div>
+                        <div class="starms-contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <p><a href="https://wa.me/2348066679101" target="_blank" rel="noopener noreferrer">+234 806 667 9101</a></p>
+                            </div>
+                        </div>
+                        <div class="starms-contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p><a href="mailto:starmscatering@gmail.com">starmscatering@gmail.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="starms-contact-form">
+                        <h3>Send us a Message</h3>
+                        <form id="contact-form">
+                            <div class="starms-form-grid">
+                                <div class="starms-form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="starms-form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="starms-form-grid">
+                                <div class="starms-form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone">
+                                </div>
+                                <div class="starms-form-group">
+                                    <label for="event-type">Event Type</label>
+                                    <select id="event-type" name="event-type">
+                                        <option value="">Select Event Type</option>
+                                        <option value="wedding">Wedding</option>
+                                        <option value="corporate">Corporate Event</option>
+                                        <option value="birthday">Birthday Party</option>
+                                        <option value="anniversary">Anniversary</option>
+                                        <option value="anniversary">Burial Ceremony</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="starms-form-group" id="other-event-group" style="display: none;">
+                              <label for="other-event-type">Please specify the event type</label>
+                              <input
+                                type="text"
+                                id="other-event-type"
+                                name="other-event-type"
+                                placeholder="e.g., Housewarming, Seminar"
+                              />
+                            </div>
+                            <div class="starms-form-grid">
+                                <div class="starms-form-group">
+                                    <label for="event-date">Event Date</label>
+                                    <input type="date" id="event-date" name="event-date">
+                                </div>
+                                <div class="starms-form-group">
+                                    <label for="guest-count">Number of Guests</label>
+                                    <input type="number" id="guest-count" name="guest-count" min="1">
+                                </div>
+                            </div>
+                            <div class="starms-form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" rows="4" required placeholder="Tell us about your event and any special requirements..."></textarea>
+                            </div>
+                            <button type="submit" class="starms-btn starms-btn-primary starms-btn-full">
+                                <i class="fas fa-paper-plane"></i>Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="starms-section starms-faq-section">
+            <div class="starms-container">
+                <div class="starms-section-header">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Find answers to common questions about our catering services</p>
+                </div>
+                
+                <div class="starms-faq-container">
+                    <div class="starms-faq-item">
+                        <div class="starms-faq-question" data-aos="zoom-in">
+                            <h3>How far in advance should I book your catering services?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="starms-faq-answer">
+                            <p>We recommend booking at least 2-4 weeks in advance for most events. For large events or peak seasons (holidays, wedding season), we suggest booking 6-8 weeks ahead to ensure availability.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="starms-faq-item">
+                        <div class="starms-faq-question" data-aos="zoom-in">
+                            <h3>Do you accommodate dietary restrictions and allergies?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="starms-faq-answer">
+                            <p>Absolutely! We can accommodate various dietary needs including vegetarian, vegan, gluten-free, and other specific dietary requirements. Please inform us of any allergies or restrictions when booking.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="starms-faq-item">
+                        <div class="starms-faq-question" data-aos="zoom-in">
+                            <h3>What's included in your catering packages?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="starms-faq-answer">
+                            <p>Our packages typically include food preparation, serving staff, basic serving equipment, and cleanup. We can also provide additional services like decorations, equipment rental, and event coordination for an additional fee.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="starms-faq-item">
+                        <div class="starms-faq-question" data-aos="zoom-in">
+                            <h3>Do you provide serving staff for events?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="starms-faq-answer">
+                            <p>Yes, we provide professional serving staff for all our catering events. Our team is trained to deliver exceptional service and ensure your guests have a wonderful dining experience.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="starms-faq-item">
+                        <div class="starms-faq-question" data-aos="zoom-in">
+                            <h3>What areas do you serve?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="starms-faq-answer">
+                            <p>We primarily serve the Osogbo metropolitan area and surrounding regions. For events outside our standard service area, we may charge additional delivery fees. Contact us to discuss your specific location.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section id="reviews" class="starms-section starms-reviews-section">
+            <div class="starms-container">
+                <div class="starms-section-header">
+                    <h2>Client Reviews</h2>
+                    <p>See what our satisfied clients have to say about our services</p>
+                </div>
+                
+                <div class="starms-reviews-container">
+                    <div class="starms-reviews-list" id="reviews-list">
+                        <!-- Reviews will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="starms-review-form-section">
+                        <h3>Share Your Experience</h3>
+                        <form id="review-form">
+                            <div class="starms-form-group">
+                                <label for="review-name">Your Name *</label>
+                                <input type="text" id="review-name" name="name" required>
+                            </div>
+                            <div class="starms-form-group">
+                                <label>Rating *</label>
+                                <div class="starms-star-rating" id="star-rating">
+                                    <i class="fas fa-star" data-rating="1"></i>
+                                    <i class="fas fa-star" data-rating="2"></i>
+                                    <i class="fas fa-star" data-rating="3"></i>
+                                    <i class="fas fa-star" data-rating="4"></i>
+                                    <i class="fas fa-star" data-rating="5"></i>
+                                </div>
+                            </div>
+                            <div class="starms-form-group">
+                                <label for="review-comment">Your Review *</label>
+                                <textarea id="review-comment" name="comment" rows="4" required placeholder="Tell us about your experience with STARMS Catering..."></textarea>
+                            </div>
+                            <button type="submit" class="starms-btn starms-btn-primary starms-btn-full">
+                                <i class="fas fa-star"></i>Submit Review
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="starms-footer">
+        <div class="starms-footer-container">
+            <div class="starms-footer-grid">
+                <div class="starms-footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="starms-footer-contact">
+                        <p>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+2347019400439">+234 701 940 0439</a>
+                        </p>
+                        <p>
+                            <i class="fab fa-whatsapp"></i>
+                            <a href="https://wa.me/2348066679101?text=I%20am%20interested%20in%20your%20catering%20services" target="_blank" rel="noopener noreferrer">
+                                +234 806 667 9101
+                            </a>
+                        </p>
+                        <p>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:starmscatering@gmail.com">starmscatering@gmail.com</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="starms-footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="starms-footer-links">
+                        <li><button data-section="home">Home</button></li>
+                        <li><button data-section="about">About</button></li>
+                        <li><button data-section="menu">Our Menu</button></li>
+                        <li><button data-section="gallery">Gallery</button></li>
+                        <li><button data-section="contact">Contact</button></li>
+                    </ul>
+                </div>
+                
+                <div class="starms-footer-section">
+                   <h3>Follow Us</h3>
+                    <div class="starms-footer-social">
+                      <a href="https://www.facebook.com/share/16SjUGdzYD" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                      <a href="https://instagram.com/starmscatering" target="_blank"><i class="fab fa-instagram"></i></a>
+                      <a href="https://x.com/StarmsCatering" target="_blank"><i class="fab fa-twitter"></i></a>
+                      <a href="https://tiktok.com/@starmscatering" target="_blank"><i class="fab fa-tiktok"></i></a>
+                      <a href="https://wa.me/2348066679101?text=I%20am%20interested%20in%20your%20catering%20services" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="starms-footer-section">
+                    <h3>Subscribe</h3>
+                    <p class="starms-footer-description">Get updates on our latest menus and offers!</p>
+                    <form id="newsletter-form" class="starms-footer-form" action="https://formspree.io/f/YOUR_OTHER_FORM_ID" method="POST">
+                        <input 
+                            type="email" 
+                            name="email"
+                            placeholder="Your email" 
+                            required 
+                            class="starms-footer-input"
+                        />
+                        <button type="submit" class="starms-footer-submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="starms-footer-bottom">
+                <p>&copy; 2025 STARMS Catering | All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+   <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-analytics.js";
+    import {
+           getFirestore,
+           collection,
+           addDoc,
+           getDocs,
+           query,
+           orderBy
+    } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+   
+    const firebaseConfig = {
+     apiKey: "AIzaSyA2fBzIIKRtTPXmZVJXBu0M_68LxOg8lrs",
+     authDomain: "starms-catering.firebaseapp.com",
+     projectId: "starms-catering",
+     storageBucket: "starms-catering.firebasestorage.app",
+     messagingSenderId: "419827301390",
+     appId: "1:419827301390:web:0c54657050d0e64c16d05f",
+     measurementId: "G-FVBS6K98VS"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+
+
+   let currentSection = 'home';
+   let currentRating = 0;
+   let isMobileMenuOpen = false;
+
+  
+   const loader = document.querySelector('.starms-loader');
+   const sections = document.querySelectorAll('.starms-section');
+   const navLinks = document.querySelectorAll('.starms-nav-link');
+   const mobileNavLinks = document.querySelectorAll('.starms-nav-mobile-link');
+   const mobileMenuBtn = document.querySelector('.starms-nav-mobile-btn');
+   const mobileMenu = document.querySelector('.starms-nav-mobile');
+
+    function showToast(message) {
+     alert(message);
+    }
+
+    function showLoader(callback) {
+     loader.classList.add('active');
+      setTimeout(() => {
+       callback();
+        loader.classList.remove('active');
+      }, 1000);
+    }
+
+    async function saveReview(review) {
+      try {
+        await addDoc(collection(db, "reviews"), review);
+        return true;
+      } catch (error) {
+        console.error("Error saving review:", error);
+        return false;
+      }
+    }
+
+    async function getReviews() {
+      try {
+        const q = query(collection(db, "reviews"), orderBy("date", "desc")); 
+        const snapshot = await getDocs(q);
+        return snapshot.docs.map(doc => doc.data());
+      } catch (error) {
+        console.error("Error getting reviews:", error);
+        return [];
+      }
+    }
+
+    function saveSubscription(email) {
+      try {
+       const subscriptions = JSON.parse(localStorage.getItem('starms-subscriptions') || '[]');
+       if (subscriptions.includes(email)) return false;
+       subscriptions.push(email);
+       localStorage.setItem('starms-subscriptions', JSON.stringify(subscriptions));
+       return true;
+      } catch {
+        return false;
+      }
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.style.display = 'none';
+      isMobileMenuOpen = false;
+    }
+
+    function navigateToSection(sectionId) {
+      showLoader(() => {
+        sections.forEach(section => section.classList.remove('active'));
+
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+          targetSection.classList.add('active');
+        }
+
+        navLinks.forEach(link => link.classList.remove('active'));
+        const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
+        if (activeLink) {
+          activeLink.classList.add('active');
+        }
+
+        currentSection = sectionId;
+        window.location.hash = sectionId;
+
+        closeMobileMenu();
+        window.scrollTo(0, 0);
+
+        if (sectionId === 'reviews') {
+          loadReviews();
+        }
+      });
+    }
+
+    function toggleMobileMenu() {
+      isMobileMenuOpen = !isMobileMenuOpen;
+      mobileMenu.style.display = isMobileMenuOpen ? 'block' : 'none';
+    }
+
+    async function loadReviews() {
+      const reviewsList = document.getElementById('reviews-list');
+      const reviews = await getReviews();
+
+      if (reviews.length === 0) {
+        reviewsList.innerHTML = `
+          <div class="starms-no-reviews">
+            <i class="fas fa-comments"></i>
+            <h4>No Reviews Yet</h4>
+            <p>Be the first to share your experience with STARMS Catering!</p>
+          </div>`;
+        return;
+      }
+
+      reviewsList.innerHTML = reviews.map(review => {
+        const stars = Array.from({ length: 5 }, (_, i) =>
+          `<i class="fas fa-star ${i < review.rating ? '' : 'inactive'}"></i>`
+        ).join('');
+
+        return `
+          <div class="starms-review">
+            <div class="starms-review-header">
+              <span class="starms-review-author">${escapeHtml(review.name)}</span>
+              <span class="starms-review-date">${review.date}</span>
+            </div>
+            <div class="starms-review-rating">${stars}</div>
+            <p class="starms-review-comment">${escapeHtml(review.comment)}</p>
+          </div>`;
+      }).join('');
+    }
+  
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function handleReviewSubmit(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const name = formData.get('name');
+      const comment = formData.get('comment');
+
+      if (currentRating === 0) {
+        showToast("Please select a rating before submitting your review.");
+        return;
+      }
+  
+      const review = {
+        name,
+        rating: currentRating,
+        comment,
+        date: new Date().toLocaleDateString()
+      };
+
+      if (saveReview(review)) {
+        showToast("Thank you for your feedback!");
+        event.target.reset();
+        currentRating = 0;
+        updateStarRating();
+        loadReviews();
+      } else {
+        showToast("Sorry, there was an error saving your review. Please try again.");
+      }
+    }
+
+    function updateStarRating() {
+      const stars = document.querySelectorAll('#star-rating i');
+      stars.forEach((star, index) => {
+        star.classList.toggle('active', index < currentRating);
+      });
+    }
+
+    function toggleFaq(faqItem) {
+      faqItem.classList.toggle('active');
+    }
+
+    document.getElementById('contact-form').addEventListener('submit', async function (e) { e.preventDefault();
+
+    const form = e.target;
+    const data = new FormData(form);
+    const action = "https://formspree.io/f/mkgbvynj"; 
+
+    try {
+      const response = await fetch(action, {
+        method: "POST",
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        showToast("Thanks! Your message was sent.");
+        form.reset();
+      } else {
+         showToast("Oops! Something went wrong.");
+      }
+      } catch (error) {
+        showToast("Error sending message. Check internet.");
+      }
+    });
+
+  
+    function handleNewsletterSubmit(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const email = formData.get('email');
+
+      const success = saveSubscription(email);
+      if (success) {
+        showToast("Thank you for subscribing to our newsletter!");
+        event.target.reset();
+      } else {
+        showToast("You are already subscribed to our newsletter.");
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      navLinks.forEach(link => {
+        link.addEventListener('click', e => {
+          const sectionId = e.target.dataset.section;
+          navigateToSection(sectionId);
+        });
+      });
+
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', e => {
+          const sectionId = e.target.dataset.section;
+          navigateToSection(sectionId);
+        });
+      });
+
+      const gallery = document.getElementById("gallery-items");
+      const totalImages = 22;
+      const folder = "images/"; // Folder where your images are stored
+
+      for (let i = 1; i <= totalImages; i++) {
+        const div = document.createElement("div");
+        div.className = "starms-gallery-item";
+        div.setAttribute("data-aos", "fade-up");
+  
+        const img = document.createElement("img");
+        img.src = `${folder}event${i}.jpg`;
+        img.alt = `Event ${i}`;
+        img.loading = "lazy";
+
+        div.appendChild(img);
+        gallery.appendChild(div);
+      }
+
+      AOS.init({
+        duration: 800,
+      });
+
+      AOS.refresh();
+
+      const eventTypeSelect = document.getElementById("event-type");
+      const otherEventGroup = document.getElementById("other-event-group");
+      const otherEventInput = document.getElementById("other-event-type");
+
+      eventTypeSelect.addEventListener("change", function () {
+        if (this.value === "other") {
+          otherEventGroup.style.display = "block";
+        } else {
+          otherEventGroup.style.display = "none";
+          otherEventInput.value = "";
+        }
+      });
+
+      // Restore section from hash if available
+      const hash = window.location.hash.replace('#', '');
+      if (hash && document.getElementById(hash)) {
+        navigateToSection(hash);
+      } else {
+        navigateToSection('home'); // default
+      }
+    });
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    document.querySelectorAll('[data-section]').forEach(button => {
+      button.addEventListener('click', e => {
+        const sectionId = e.target.dataset.section || e.target.closest('[data-section]').dataset.section;
+        if (sectionId) navigateToSection(sectionId);
+      });
+    });
+
+    document.querySelectorAll('.starms-footer-links button').forEach(button => {
+      button.addEventListener('click', e => {
+       const sectionId = e.target.dataset.section;
+        if (sectionId) navigateToSection(sectionId);
+      });
+    });
+
+    const reviewForm = document.getElementById('review-form');
+    if (reviewForm) {
+      reviewForm.addEventListener('submit', handleReviewSubmit);
+    }
+
+    const starRating = document.getElementById('star-rating');
+    if (starRating) {
+      starRating.addEventListener('click', e => {
+        if (e.target.tagName === 'I') {
+          currentRating = parseInt(e.target.dataset.rating);
+          updateStarRating();
+        }
+      });
+
+      starRating.addEventListener('mouseover', e => {
+        if (e.target.tagName === 'I') {
+          const hoverRating = parseInt(e.target.dataset.rating);
+          const stars = starRating.querySelectorAll('i');
+          stars.forEach((star, index) => {
+            star.classList.toggle('active', index < hoverRating);
+          });
+        }
+      });
+
+      starRating.addEventListener('mouseleave', () => {
+        updateStarRating();
+      });
+    }
+
+    document.querySelectorAll('.starms-faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+       const faqItem = question.closest('.starms-faq-item');
+        toggleFaq(faqItem);
+      });
+    });
+
+    document.addEventListener('click', e => {
+      if (isMobileMenuOpen && !e.target.closest('.starms-nav')) {
+        closeMobileMenu();
+      }
+    });
+
+    loadReviews();
+
+    const eventDateInput = document.getElementById('event-date');
+    if (eventDateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      eventDateInput.min = today;
+    }
+   </script>
+</body>
+</html>
